@@ -1,0 +1,2 @@
+class MonkeylearnError < StandardError
+end
