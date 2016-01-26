@@ -88,10 +88,13 @@ negative_category_id = r.result['result']['category']['id']
 Upload some samples to each category:
 
 ```ruby
-samples = {
-  positive_category_id => ['Nice beatiful', 'awesome excelent'],
-  negative_category_id => ['Awful bad', 'sad pale'],
-}
+samples = [
+    ['Nice beatiful', positive_category_id],
+    ['awesome excelent', positive_category_id],
+    ['Awful bad', negative_category_id],
+    ['sad pale', negative_category_id],
+    ['happy sad both multilabel', [positive_category_id, negative_category_id]]
+]
 r = Monkeylearn.classifiers.upload_samples(classifier_id, samples)
 ```
 
