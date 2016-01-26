@@ -74,11 +74,14 @@ module Monkeylearn
       end
 
       def upload_samples(module_id, samples_with_categories)
+        unless samples_with_categories.respond_to? :each
+          raise MonkeylearnError, "The second param must be an enumerable type (i.e. an Array)."
+        end
         endpoint = build_endpoint(module_id, 'samples')
         data = {
-          samples: samples_with_categories.collect do |category_id, texts|
-            texts.collect { |text| {text: text, category_id: category_id} }
-          end.flatten(1)
+          samples: samples_with_categories.collect do |text, category_ids|
+            {text: text, category_id: category_ids}
+          end
         }
         request :post, endpoint, data
       end
