@@ -5,6 +5,10 @@ require 'monkeylearn/response'
 module Monkeylearn
   module Requests
     def request(method, path, data = nil, query_params = nil)
+      unless Monkeylearn.token
+        raise MonkeylearnError, 'Please initialize the Monkeylearn library with your API token'
+      end
+
       response = get_connection.send(method) do |req|
         url = path.to_s
         if query_params
