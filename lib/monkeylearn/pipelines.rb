@@ -21,7 +21,6 @@ module Monkeylearn
         unless data.is_a?(Hash)
           raise MonkeylearnError, 'The data param must be a hash'
         end
-        puts endpoint
         request :post, endpoint, data
       end
     end
