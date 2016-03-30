@@ -17,6 +17,7 @@ module Monkeylearn
         req.url url
         req.headers['Authorization'] = 'Token ' + Monkeylearn.token
         req.headers['Content-Type'] = 'application/json'
+        req.headers['User-Agent'] = 'ruby-sdk'
         if data
           req.body = data.to_json
         end
