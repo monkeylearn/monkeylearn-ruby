@@ -116,6 +116,10 @@ module Monkeylearn
         request :post, build_endpoint(module_id), data
       end
 
+      def detail(module_id, category_id)
+        request :get, build_endpoint(module_id, category_id)
+      end
+
       def edit(module_id, category_id, name = nil, parent_id = nil)
         endpoint = build_endpoint(module_id, category_id)
         data = {
