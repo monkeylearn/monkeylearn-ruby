@@ -25,7 +25,7 @@ module Monkeylearn
       if Monkeylearn.wait_on_throttle && seconds = throttled?(response)
         # Request was throttled, wait 'seconds' seconds and retry
         sleep seconds
-        response = request(method, path, data)
+        return request(method, path, data, query_params)
       end
       Monkeylearn::Response.new(response)
     end
