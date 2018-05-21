@@ -2,13 +2,13 @@ require 'monkeylearn/defaults'
 
 module Monkeylearn
   module Configurable
-    attr_accessor :token, :api_endpoint
-    attr_writer :api_endpoint
+    attr_accessor :token, :base_url
+    attr_writer :base_url
 
     class << self
       def keys
         @keys ||= [
-          :api_endpoint,
+          :base_url,
           :token,
           :wait_on_throttle
         ]
@@ -30,8 +30,8 @@ module Monkeylearn
       @wait_on_throttle
     end
 
-    def api_endpoint
-      File.join(@api_endpoint, "")
+    def base_url
+      File.join(@base_url, "")
     end
   end
 end

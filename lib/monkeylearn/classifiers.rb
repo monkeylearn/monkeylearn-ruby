@@ -11,8 +11,8 @@ module Monkeylearn
     class << self
       include Monkeylearn::Requests
 
-      def categories
-        return Categories
+      def tags
+        return Tags
       end
 
       def build_endpoint(*args)
@@ -24,27 +24,27 @@ module Monkeylearn
         if batch_size >  max_size
           raise MonkeylearnError, "The param batch_size is too big, max value is #{max_size}."
         end
-        min_size = Monkeylearn::Defaults.min_batch_size
-        if batch_size <  min_size
-          raise MonkeylearnError, "The param batch_size is too small, min value is #{min_size}."
-        end
         true
       end
 
-      def classify(module_id, texts, options = {})
+      def classify(model_id, data, options = {})
         options[:batch_size] ||= Monkeylearn::Defaults.default_batch_size
         batch_size = options[:batch_size]
         validate_batch_size batch_size
 
-        endpoint = build_endpoint(module_id, 'classify')
-        query_params = { sandbox: true } if options[:sandbox]
+        endpoint = build_endpoint(model_id, 'classify')
+        query_params = { production_model: true } if options[:production_model]
 
-        responses = (0...texts.length).step(batch_size).collect do |start_idx|
-          data = { text_list: texts.slice(start_idx, batch_size) }
-          response = request :post, endpoint, data, query_params
+        responses = (0...data.length).step(batch_size).collect do |start_idx|
+          sliced_data = { data: data.slice(start_idx, batch_size) }
+          request(:post, endpoint, sliced_data, query_params)
         end
 
         Monkeylearn::MultiResponse.new(responses)
+      end
+
+      def list(options = {})
+        request(:get, build_endpoint, nil, options)
       end
 
       def create(name, options = {})
@@ -66,62 +66,53 @@ module Monkeylearn
             text_type: options[:text_type],
             permissions: options[:permissions]
         }.delete_if { |k,v| v.nil? }
-        request :post, build_endpoint, data
+        request(:post, build_endpoint, data)
       end
 
       def detail(module_id)
-        request :get, build_endpoint(module_id)
-      end
-
-      def upload_samples(module_id, samples_with_categories)
-        unless samples_with_categories.respond_to? :each
-          raise MonkeylearnError, "The second param must be an enumerable type (i.e. an Array)."
-        end
-        endpoint = build_endpoint(module_id, 'samples')
-        data = {
-          samples: samples_with_categories.collect do |text, category_ids|
-            {text: text, category_id: category_ids}
-          end
-        }
-        request :post, endpoint, data
-      end
-
-      def train(module_id)
-        request :post, build_endpoint(module_id, 'train')
+        request(:get, build_endpoint(module_id))
       end
 
       def deploy(module_id)
-        request :post, build_endpoint(module_id, 'deploy')
+        request(:post, build_endpoint(module_id, 'deploy'))
+      end
+
+      def upload_data(module_id, data)
+        endpoint = build_endpoint(module_id, 'data')
+
+        request(:post, endpoint, {data: data})
       end
 
       def delete(module_id)
-        request :delete, build_endpoint(module_id)
+        request(:delete, build_endpoint(module_id))
       end
     end
   end
 
-  module Categories
+  module Tags
     class << self
       include Monkeylearn::Requests
 
       def build_endpoint(module_id, *args)
-        File.join('classifiers', module_id, 'categories', *args.collect { |x| x.to_s }) + '/'
+        File.join('classifiers', module_id, 'tags', *args.collect { |x| x.to_s }) + '/'
       end
 
-      def create(module_id, name, parent_id)
+      def create(module_id, name, options = {})
         data = {
           name: name,
-          parent_id: parent_id
         }
-        request :post, build_endpoint(module_id), data
+        if options[:parent_id]
+          data[:parent_id] = options[:parent_id]
+        end
+        request(:post, build_endpoint(module_id), data)
       end
 
-      def detail(module_id, category_id)
-        request :get, build_endpoint(module_id, category_id)
+      def detail(module_id, tag_id)
+        request :get, build_endpoint(module_id, tag_id)
       end
 
-      def edit(module_id, category_id, name = nil, parent_id = nil)
-        endpoint = build_endpoint(module_id, category_id)
+      def edit(module_id, tag_id, name = nil, parent_id = nil)
+        endpoint = build_endpoint(module_id, tag_id)
         data = {
           name: name,
           parent_id: parent_id
@@ -129,13 +120,9 @@ module Monkeylearn
         request :patch, endpoint, data
       end
 
-      def delete(module_id, category_id, samples_strategy = nil, samples_category_id = nil)
-        endpoint = build_endpoint(module_id, category_id)
-        data = {
-          'samples-strategy'.to_s => samples_strategy,
-          'samples-category-id'.to_s => samples_category_id
-        }.delete_if { |k,v| v.nil? }
-        request :delete, endpoint, data
+      def delete(module_id, tag_id, options = {})
+        endpoint = build_endpoint(module_id, tag_id)
+        request(:delete, endpoint, data)
       end
     end
   end
