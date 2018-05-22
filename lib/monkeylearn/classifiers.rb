@@ -73,6 +73,28 @@ module Monkeylearn
         request(:post, build_endpoint, data)
       end
 
+      def edit(module_id, options = {})
+        data = {
+            name: options[:name],
+            description: options[:description],
+            language: options[:language],
+            ngram_range: options[:ngram_range],
+            use_stemmer: options[:use_stemmer],
+            stop_words: options[:stop_words],
+            max_features: options[:max_features],
+            strip_stopwords: options[:strip_stopwords],
+            is_multilabel: options[:is_multilabel],
+            is_twitter_data: options[:is_twitter_data],
+            normalize_weights: options[:normalize_weights],
+            classifier: options[:classifier],
+            industry: options[:industry],
+            classifier_type: options[:classifier_type],
+            text_type: options[:text_type],
+            permissions: options[:permissions]
+        }.delete_if { |k,v| v.nil? }
+        request(:patch, build_endpoint(module_id), data)
+      end
+
       def detail(module_id)
         request(:get, build_endpoint(module_id))
       end
