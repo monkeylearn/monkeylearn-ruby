@@ -22,7 +22,7 @@ Usage
 
 First require and configure the lib:
 
-Before making requests to the API you need to set your using your [account API Key](https://app.monkeylearn.com/main/my-account/tab/api-keys/):
+Before making requests to the API you need to set your [account API Key](https://app.monkeylearn.com/main/my-account/tab/api-keys/):
 
 ```ruby
 require 'monkeylearn'
@@ -36,7 +36,7 @@ end
 
 ### Requests
 
-From the MonkeyLearn module you can call any endpoint (check out the [available endpoints](#available-endpoints) below). For example you can [classify](#classify) a list of texts (`data` parameter) using the public [Sentiment analysis classifier](https://app.monkeylearn.com/main/classifiers/cl_oJNMkt2V/):
+From the Monkeylearn module you can call any endpoint (check the [available endpoints](#available-endpoints) below). For example you can [classify](#classify) a list of texts using the public [Sentiment analysis classifier](https://app.monkeylearn.com/main/classifiers/cl_oJNMkt2V/):
 
 
 ```ruby
@@ -51,14 +51,14 @@ response = Monkeylearn.classifiers.classify(classifier_model_id, data)
 
 ### Responses
 
-The response object returned by every endpoint call is a `MonkeyLearnResponse` object. The `body` attribute has the parsed response from the API:
+The response object returned by every endpoint call is a `MonkeylearnResponse` object. The `body` attribute has the parsed response from the API:
 
 ```ruby
 puts response.body
 # =>  [
 # =>      {
 # =>          "text" => "Great hotel with excellent location",
-# =>          "external_id" => null,
+# =>          "external_id" => nil,
 # =>          "error" => false,
 # =>          "classifications" => [
 # =>              {
@@ -70,7 +70,7 @@ puts response.body
 # =>      },
 # =>      {
 # =>          "text" => "This is the worst hotel ever.",
-# =>          "external_id" => null,
+# =>          "external_id" => nil,
 # =>          "error" => false,
 # =>          "classifications" => [
 # =>              {
