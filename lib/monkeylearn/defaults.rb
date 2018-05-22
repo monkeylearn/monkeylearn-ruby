@@ -5,7 +5,7 @@ module Monkeylearn
     MAX_BATCH_SIZE = 200
     # Configurable options
     BASE_URL = 'https://api.monkeylearn.com/v3/'
-    WAIT_ON_THROTTLE = true
+    RETRY_IF_THROTTLE = true
 
     class << self
       def options
@@ -20,8 +20,8 @@ module Monkeylearn
         ENV['MONKEYLEARN_TOKEN'] || nil
       end
 
-      def wait_on_throttle
-        ENV['MONKEYLEARN_WAIT_ON_THROTTLE'] || WAIT_ON_THROTTLE
+      def retry_if_throttle
+        ENV['MONKEYLEARN_RETRY_IF_THROTTLE'] || RETRY_IF_THROTTLE
       end
 
       def max_batch_size

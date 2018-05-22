@@ -26,7 +26,7 @@ module Monkeylearn
         end
 
         seconds = throttled?(response)
-        if seconds && Monkeylearn.wait_on_throttle
+        if seconds && Monkeylearn.retry_if_throttle
           sleep seconds
         else
           break

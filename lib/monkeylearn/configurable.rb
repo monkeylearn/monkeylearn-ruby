@@ -2,7 +2,7 @@ require 'monkeylearn/defaults'
 
 module Monkeylearn
   module Configurable
-    attr_accessor :token, :base_url
+    attr_accessor :token, :base_url, :retry_if_throttle
     attr_writer :base_url
 
     class << self
@@ -10,7 +10,7 @@ module Monkeylearn
         @keys ||= [
           :base_url,
           :token,
-          :wait_on_throttle
+          :retry_if_throttle
         ]
       end
     end
@@ -26,8 +26,8 @@ module Monkeylearn
       self
     end
 
-    def wait_on_throttle
-      @wait_on_throttle
+    def retry_if_throttle
+      @retry_if_throttle
     end
 
     def base_url
