@@ -149,10 +149,10 @@ Parameters:
 
 Extra option parameters:
 
-| Parameter          |Type               | Description                                               |
-|--------------------|-------------------|-----------------------------------------------------------|
-|*production_model*  |`Boolean`          |Indicates if the classifications are performed by the production model. Only use this parameter with *custom models* (not with the public ones). Note that you first need to deploy the production model from the UI model settings or using the [Classifier deploy endpoint](#deploy). |
-|*batch_size*        |`Integer`          |Max amount of texts each request will send to MonkeyLearn. A number from 1 to 200. |
+| Parameter          |Type               |Default               | Description                                               |
+|--------------------|-------------------|----------------------|-----------------------------------------------------------|
+|*production_model*  |`Boolean`          | `False`              | Indicates if the classifications are performed by the production model. Only use this parameter with *custom models* (not with the public ones). Note that you first need to deploy the production model from the UI model settings or using the [Classifier deploy endpoint](#deploy). |
+|*batch_size*        |`Integer`          | `200`                  | Max amount of texts each request will send to Monkeylearn. A number from 1 to 200. |
 
 
 Example:
@@ -201,19 +201,19 @@ options   | `Hash`   | Extra optional parameters, see below.
 
 Extra option parameters:
 
-Parameter | Type     | Description
-----------|----------|----------------------------
-description | `String` | The description of the model.
-algorithm | `String` | The [algorithm](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-changing-the-algorithm) used when training the model. It can either be "nb" or "svm".
-language | `String` | The [language](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-language) of the model. Full list of [supported languages](https://monkeylearn.com/api/v3/#classifier-detail).
-max_features | `Integer` | The [maximum amount of features](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-max-features) used when training the model. Between 10 and 100000.
-ngram_range | `Array` | Indicates which [N-gram range](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-n-gram-range) used when training the model. A list of two numbers between 1 and 3. The first one indicates the minimum and the second one the maximum N for the N-grams used.
-use_stemming | `Boolean`| Indicates whether [stemming](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-stemming) is used when training the model.
-preprocess_numbers | `Boolean` | Indicates whether [number preprocessing](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-preprocess-numbers) is done when training the model.
-preprocess_social_media | `Boolean` | Indicates whether [preprocessing for social media](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-social-media-preprocessing-and-regular-expressions) is done when training the model.
-normalize_weights | `Boolean` | Indicates whether [weights will be normalized](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-normalize-weights) when training the model.
-stopwords | `Boolean or Array` |  The list of [stopwords](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-filter-stopwords) used when training the model. Use false for no stopwords, true for the default stopwords, or an array of strings for custom stopwords.
-whitelist | `Array` | The [whitelist](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-whitelist) of words used when training the model.
+| Parameter          |Type               |Default               | Description                                               |
+|--------------------|-------------------|----------------------|-----------------------------------------------------------|
+description | `String` | `''` | The description of the model.
+algorithm | `String` | `'nb'` | The [algorithm](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-changing-the-algorithm) used when training the model. It can either be "nb" or "svm".
+language | `String` | `'en'` | The [language](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-language) of the model. Full list of [supported languages](https://monkeylearn.com/api/v3/#classifier-detail).
+max_features | `Integer` | `10000` | The [maximum amount of features](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-max-features) used when training the model. Between 10 and 100000.
+ngram_range | `Array` | `[1,1]` | Indicates which [N-gram range](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-n-gram-range) used when training the model. A list of two numbers between 1 and 3. The first one indicates the minimum and the second one the maximum N for the N-grams used.
+use_stemming | `Boolean`|  `true`| Indicates whether [stemming](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-stemming) is used when training the model.
+preprocess_numbers | `Boolean` | `true` | Indicates whether [number preprocessing](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-preprocess-numbers) is done when training the model.
+preprocess_social_media | `Boolean` | `false` | Indicates whether [preprocessing for social media](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-social-media-preprocessing-and-regular-expressions) is done when training the model.
+normalize_weights | `Boolean` | `true` | Indicates whether [weights will be normalized](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-normalize-weights) when training the model.
+stopwords | `Boolean or Array` | `true` | The list of [stopwords](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-filter-stopwords) used when training the model. Use false for no stopwords, true for the default stopwords, or an array of strings for custom stopwords.
+whitelist | `Array` | `[]` | The [whitelist](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-whitelist) of words used when training the model.
 
 Example:
 
@@ -239,8 +239,8 @@ Parameter  |Type     |Description
 
 Extra option parameters:
 
-Parameter | Type     | Description
-----------|----------|----------------------------
+| Parameter          |Type               | Description                                               |
+|--------------------|-------------------|-----------------------------------------------------------|
 name | `String` | The name of the model.
 description | `String` | The description of the model.
 algorithm | `String` | The [algorithm](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-changing-the-algorithm) used when training the model. It can either be "nb" or "svm".
@@ -291,10 +291,10 @@ Monkeylearn.classifiers.list(page: 1, per_page: 20)
 
 Extra option parameters:
 
-|Parameter           |Type               | Description |
-|--------------------|-------------------|-------------|
-|*page*              |`String`              |Specifies which page to get.|
-|*per_page*          |`String`              |Specifies how many items to return per page. |
+|Parameter           |Type               |Default            | Description |
+|--------------------|-------------------|-------------------|-------------|
+|*page*              |`Integer`          | `1`               | Specifies which page to get.|
+|*per_page*          |`Integer`          | `20`              | Specifies how many items to return per page. |
 
 Example:
 
@@ -364,9 +364,9 @@ Parameters:
 
 Extra option parameters:
 
-Parameter | Type     | Description
-----------|----------|----------------------------
-*parent_id*         |`Integer`              |**DEPRECATED**. The ID of the parent tag.
+| Parameter          |Type               | Description                                               |
+|--------------------|-------------------|-----------------------------------------------------------|
+|*parent_id*         |`Integer`              |**DEPRECATED**. The ID of the parent tag.
 
 Example:
 
@@ -393,9 +393,9 @@ Parameters:
 
 Extra option parameters:
 
-Parameter | Type     | Description
-----------|----------|----------------------------
-*name*    |`String`  |The new name of the tag. |
+| Parameter          |Type               | Description                                               |
+|--------------------|-------------------|-----------------------------------------------------------|
+|*name*    |`String`  |The new name of the tag. |
 
 Example:
 
@@ -422,9 +422,9 @@ Parameters:
 
 Extra option parameters:
 
-Parameter | Type     | Description
-----------|----------|----------------------------
-*move_data_to*      |`int`              |An optional tag ID. If provided, training data associated with the tag will be moved to the specified tag before deletion. |
+| Parameter          |Type               |Default               | Description                                               |
+|--------------------|-------------------|----------------------|-----------------------------------------------------------|
+|*move_data_to*      |`int`              |`nil`                 |An optional tag ID. If provided, training data associated with the tag will be moved to the specified tag before deletion. |
 
 Example:
 
@@ -488,10 +488,10 @@ Parameters:
 
 Extra option parameters:
 
-| Parameter          |Type               | Description                                               |
-|--------------------|-------------------|-----------------------------------------------------------|
-|*production_model*  |`Boolean`          |Indicates if the extractions are performed by the production model. Only use this parameter with *custom models* (not with the public ones). Note that you first need to deploy the production model from the UI model settings or using the [Classifier deploy endpoint](#deploy). |
-|*batch_size*        |`Integer`          |Max amount of texts each request will send to MonkeyLearn. A number from 1 to 200. |
+| Parameter          |Type               |Default               | Description                                               |
+|--------------------|-------------------|----------------------|-----------------------------------------------------------|
+|*production_model*  |`Boolean`          | `False`              | Indicates if the extractions are performed by the production model. Only use this parameter with *custom models* (not with the public ones). Note that you first need to deploy the production model from the UI model settings or using the [Classifier deploy endpoint](#deploy). |
+|*batch_size*        |`Integer`          | 200                  | Max amount of texts each request will send to MonkeyLearn. A number from 1 to 200. |
 
 Example:
 
@@ -532,10 +532,10 @@ Monkeylearn.extractors.list(options = {})
 
 Parameters:
 
-|Parameter           |Type               | Description |
-|--------------------|-------------------|-------------|
-|*page*              |`Integer`          |Specifies which page to get.|
-|*per_page*          |`Integer`          |Specifies how many items to return per page. |
+|Parameter           |Type               |Default            | Description |
+|--------------------|-------------------|-------------------|-------------|
+|*page*              |`Integer`          | `1`               | Specifies which page to get.|
+|*per_page*          |`Integer`          | `20`              | Specifies how many items to return per page. |
 
 Example:
 
