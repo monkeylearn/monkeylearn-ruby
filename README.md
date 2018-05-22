@@ -112,7 +112,7 @@ Available exceptions:
 
 | class                       | Description |
 |-----------------------------|-------------|
-| `MonkeyLearnError`          | Base class for each exception below.                                  |
+| `MonkeylearnError`          | Base class for each exception below.                                  |
 | `RequestParamsError`        | An invalid parameter was send. Check the exception message or response object for more information. |
 | `AuthenticationError`       | Authentication failed, usually because an invalid token was provided. For more information, check the exception message. More about [Authentication](https://monkeylearn.com/api/v3/#authentication). |
 | `ForbiddenError`            | You don't have permissions to perform the action on the given resource. |
@@ -132,11 +132,11 @@ These are all the endpoints of the API. For more information about each endpoint
 
 ### Classifiers
 
-#### Classify
+#### [Classify](https://monkeylearn.com/api/v3/?shell#classify)
 
 
 ```ruby
-MonkeyLearn.classifiers.classify(model_id, data, options = {})
+Monkeylearn.classifiers.classify(model_id, data, options = {})
 ```
 
 Parameters:
@@ -164,11 +164,11 @@ response = Monkeylearn.classifiers.classify("[MODEL_ID]", data)
 
 <br>
 
-#### Classifier detail
+#### [Classifier detail](https://monkeylearn.com/api/v3/?shell#classifier-detail)
 
 
 ```ruby
-MonkeyLearn.classifiers.detail(model_id)
+Monkeylearn.classifiers.detail(model_id)
 ```
 
 Parameters:
@@ -185,11 +185,11 @@ response = Monkeylearn.classifiers.detail("[MODEL_ID]")
 
 <br>
 
-#### Create Classifier
+#### [Create Classifier](https://monkeylearn.com/api/v3/?shell#create-classifier)
 
 
 ```ruby
-MonkeyLearn.classifiers.create(name, options = {})
+Monkeylearn.classifiers.create(name, options = {})
 ```
 
 Parameters:
@@ -223,11 +223,11 @@ response = Monkeylearn.classifiers.create("New classifier name", algorithm: "svm
 
 <br>
 
-#### Edit Classifier
+#### [Edit Classifier](https://monkeylearn.com/api/v3/?shell#edit-classifier)
 
 
 ```ruby
-MonkeyLearn.classifiers.edit(model_id, options = {})
+Monkeylearn.classifiers.edit(model_id, options = {})
 ```
 
 Parameters:
@@ -261,11 +261,11 @@ response = Monkeylearn.classifiers.edit("[MODEL_ID]", name: "New classifier name
 ```
 <br>
 
-#### Delete classifier
+#### [Delete classifier](https://monkeylearn.com/api/v3/?shell#delete-classifier)
 
 
 ```ruby
-def MonkeyLearn.classifiers.delete(model_id)
+Monkeylearn.classifiers.delete(model_id)
 ```
 
 Parameters:
@@ -282,11 +282,11 @@ Monkeylearn.classifiers.delete('[MODEL_ID]')
 
 <br>
 
-#### List Classifiers
+#### [List Classifiers](https://monkeylearn.com/api/v3/?shell#list-classifiers)
 
 
 ```ruby
-MonkeyLearn.classifiers.list(page: 1, per_page: 20)
+Monkeylearn.classifiers.list(page: 1, per_page: 20)
 ```
 
 Extra option parameters:
@@ -304,11 +304,11 @@ response = Monkeylearn.classifiers.list(page: 1, per_page: 5)
 
 <br>
 
-#### Deploy
+#### [Deploy](https://monkeylearn.com/api/v3/?shell#deploy)
 
 
 ```ruby
-MonkeyLearn.classifiers.deploy(model_id)
+Monkeylearn.classifiers.deploy(model_id)
 ```
 
 Parameters:
@@ -325,11 +325,11 @@ Monkeylearn.classifiers.deploy('[MODEL_ID]')
 
 <br>
 
-#### Tag detail
+#### [Tag detail](https://monkeylearn.com/api/v3/?shell#classify)
 
 
 ```ruby
-MonkeyLearn.classifiers.tags.detail(model_id, tag_id)
+Monkeylearn.classifiers.tags.detail(model_id, tag_id)
 ```
 
 Parameters:
@@ -347,11 +347,11 @@ response = Monkeylearn.classifiers.tags.detail("[MODEL_ID]", 25)
 
 <br>
 
-#### Create tag
+#### [Create tag](https://monkeylearn.com/api/v3/?shell#create-tag)
 
 
 ```ruby
-MonkeyLearn.classifiers.tags.create(model_id, name, options = {})
+Monkeylearn.classifiers.tags.create(model_id, name, options = {})
 ```
 
 Parameters:
@@ -376,11 +376,11 @@ response = Monkeylearn.classifiers.tags.create("[MODEL_ID]", "Positive")
 
 <br>
 
-#### Edit tag
+#### [Edit tag](https://monkeylearn.com/api/v3/?shell#edit-tag)
 
 
 ```ruby
-MonkeyLearn.classifiers.tags.edit(model_id, tag_id, options = {})
+Monkeylearn.classifiers.tags.edit(model_id, tag_id, options = {})
 ```
 
 Parameters:
@@ -405,11 +405,11 @@ response = Monkeylearn.classifiers.tags.edit("[MODEL_ID]", 25, name: "New name")
 
 <br>
 
-#### Delete tag
+#### [Delete tag](https://monkeylearn.com/api/v3/?shell#delete-tag)
 
 
 ```ruby
-MonkeyLearn.classifiers.tags.delete(model_id, tag_id, options = {})
+Monkeylearn.classifiers.tags.delete(model_id, tag_id, options = {})
 ```
 
 Parameters:
@@ -434,11 +434,11 @@ response = Monkeylearn.classifiers.tags.delete("[MODEL_ID]", 25, move_data_to: 2
 
 <br>
 
-#### Upload training data
+#### [Upload training data](https://monkeylearn.com/api/v3/?shell#upload-data)
 
 
 ```ruby
-MonkeyLearn.classifiers.upload_data(model_id, data)
+Monkeylearn.classifiers.upload_data(model_id, data)
 ```
 
 Parameters:
@@ -471,11 +471,11 @@ response = Monkeylearn.classifiers.upload_data(
 ### Extractors
 
 
-#### Extract
+#### [Extract](https://monkeylearn.com/api/v3/?shell#extract)
 
 
 ```ruby
-MonkeyLearn.extractors.extract(model_id, data, options = {})
+Monkeylearn.extractors.extract(model_id, data, options = {})
 ```
 
 Parameters:
@@ -502,11 +502,11 @@ response = Monkeylearn.extractors.extract("[MODEL_ID]", data)
 
 <br>
 
-#### Extractor detail
+#### [Extractor detail](https://monkeylearn.com/api/v3/?shell#extractor-detail)
 
 
 ```ruby
-MonkeyLearn.extractors.detail(model_id)
+Monkeylearn.extractors.detail(model_id)
 ```
 
 Parameters:
@@ -523,11 +523,11 @@ response = Monkeylearn.extractors.detail("[MODEL_ID]")
 
 <br>
 
-#### Extractor list
+#### [List extractors](https://monkeylearn.com/api/v3/?shell#list-extractors)
 
 
 ```ruby
-MonkeyLearn.extractors.list(options = {})
+Monkeylearn.extractors.list(options = {})
 ```
 
 Parameters:
