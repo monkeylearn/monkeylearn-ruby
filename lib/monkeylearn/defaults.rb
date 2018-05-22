@@ -6,6 +6,7 @@ module Monkeylearn
     # Configurable options
     BASE_URL = 'https://api.monkeylearn.com/v3/'
     RETRY_IF_THROTTLE = true
+    AUTO_BATCH = true
 
     class << self
       def options
@@ -22,6 +23,10 @@ module Monkeylearn
 
       def retry_if_throttle
         ENV['MONKEYLEARN_RETRY_IF_THROTTLE'] || RETRY_IF_THROTTLE
+      end
+
+      def auto_batch
+        ENV['MONKEYLEARN_AUTO_BATCH'] || AUTO_BATCH
       end
 
       def max_batch_size

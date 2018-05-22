@@ -35,12 +35,16 @@ module Monkeylearn
         endpoint = build_endpoint(model_id, 'classify')
         query_params = { production_model: true } if options[:production_model]
 
-        responses = (0...data.length).step(batch_size).collect do |start_idx|
-          sliced_data = { data: data.slice(start_idx, batch_size) }
-          request(:post, endpoint, sliced_data, query_params)
-        end
+        if Monkeylearn.auto_batch
+          responses = (0...data.length).step(batch_size).collect do |start_idx|
+            sliced_data = { data: data.slice(start_idx, batch_size) }
+            request(:post, endpoint, sliced_data, query_params)
+          end
 
-        Monkeylearn::MultiResponse.new(responses)
+          return Monkeylearn::MultiResponse.new(responses)
+        else
+          return request(:post, endpoint, {data: data}, query_params)
+        end
       end
 
       def list(options = {})
