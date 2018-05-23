@@ -79,9 +79,23 @@ module Monkeylearn
         end
         endpoint = build_endpoint(module_id, 'samples')
         data = {
-          samples: samples_with_categories.collect do |text, category_ids|
-            {text: text, category_id: category_ids}
-          end
+          samples:
+            if samples_with_categories.first.is_a? Hash
+              samples_with_categories.collect do |sample|
+                {
+                  text: sample[:text],
+                  category_path: sample[:category_path],
+                  tag: sample[:tag],
+                }
+              end
+            else
+              samples_with_categories.collect do |text, category_ids|
+                {
+                  text: text,
+                  category_id: category_ids,
+                }
+              end
+            end
         }
         request :post, endpoint, data
       end
