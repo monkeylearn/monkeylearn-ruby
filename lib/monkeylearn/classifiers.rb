@@ -55,20 +55,16 @@ module Monkeylearn
         data = {
             name: name,
             description: options[:description],
+            algorithm: options[:algorithm],
             language: options[:language],
-            ngram_range: options[:ngram_range],
-            use_stemmer: options[:use_stemmer],
-            stop_words: options[:stop_words],
             max_features: options[:max_features],
-            strip_stopwords: options[:strip_stopwords],
-            is_multilabel: options[:is_multilabel],
-            is_twitter_data: options[:is_twitter_data],
+            ngram_range: options[:ngram_range],
+            use_stemming: options[:use_stemming],
+            preprocess_numbers: options[:preprocess_numbers],
+            preprocess_social_media: options[:preprocess_social_media],
             normalize_weights: options[:normalize_weights],
-            classifier: options[:classifier],
-            industry: options[:industry],
-            classifier_type: options[:classifier_type],
-            text_type: options[:text_type],
-            permissions: options[:permissions]
+            stopwords: options[:stopwords],
+            whitelist: options[:whitelist],
         }.delete_if { |k,v| v.nil? }
         request(:post, build_endpoint, data)
       end
@@ -77,20 +73,16 @@ module Monkeylearn
         data = {
             name: options[:name],
             description: options[:description],
+            algorithm: options[:algorithm],
             language: options[:language],
-            ngram_range: options[:ngram_range],
-            use_stemmer: options[:use_stemmer],
-            stop_words: options[:stop_words],
             max_features: options[:max_features],
-            strip_stopwords: options[:strip_stopwords],
-            is_multilabel: options[:is_multilabel],
-            is_twitter_data: options[:is_twitter_data],
+            ngram_range: options[:ngram_range],
+            use_stemming: options[:use_stemming],
+            preprocess_numbers: options[:preprocess_numbers],
+            preprocess_social_media: options[:preprocess_social_media],
             normalize_weights: options[:normalize_weights],
-            classifier: options[:classifier],
-            industry: options[:industry],
-            classifier_type: options[:classifier_type],
-            text_type: options[:text_type],
-            permissions: options[:permissions]
+            stopwords: options[:stopwords],
+            whitelist: options[:whitelist],
         }.delete_if { |k,v| v.nil? }
         request(:patch, build_endpoint(module_id), data)
       end
