@@ -20,9 +20,9 @@ $ gem "monkeylearn", "~> 3"
 Usage
 ------
 
-First require and configure the lib:
+First, require and configure the lib:
 
-Before making requests to the API you need to set your [account API Key](https://app.monkeylearn.com/main/my-account/tab/api-keys/):
+Before making requests to the API, you need to set your [account API Key](https://app.monkeylearn.com/main/my-account/tab/api-keys/):
 
 ```ruby
 require 'monkeylearn'
@@ -36,7 +36,7 @@ end
 
 ### Requests
 
-From the Monkeylearn module you can call any endpoint (check the [available endpoints](#available-endpoints) below). For example you can [classify](#classify) a list of texts using the public [Sentiment analysis classifier](https://app.monkeylearn.com/main/classifiers/cl_oJNMkt2V/):
+From the Monkeylearn module, you can call any endpoint (check the [available endpoints](#available-endpoints) below). For example, you can [classify](#classify) a list of texts using the public [Sentiment analysis classifier](https://app.monkeylearn.com/main/classifiers/cl_oJNMkt2V/):
 
 
 ```ruby
@@ -113,22 +113,22 @@ Available exceptions:
 | class                       | Description |
 |-----------------------------|-------------|
 | `MonkeylearnError`          | Base class for each exception below.                                  |
-| `RequestParamsError`        | An invalid parameter was send. Check the exception message or response object for more information. |
-| `AuthenticationError`       | Authentication failed, usually because an invalid token was provided. For more information, check the exception message. More about [Authentication](https://monkeylearn.com/api/v3/#authentication). |
+| `RequestParamsError`        | An invalid parameter was sent. Check the exception message or response object for more information. |
+| `AuthenticationError`       | Authentication failed, usually because an invalid token was provided. Check the exception message. More about [Authentication](https://monkeylearn.com/api/v3/#authentication). |
 | `ForbiddenError`            | You don't have permissions to perform the action on the given resource. |
 | `ModelLimitError`           | You have reached the custom model limit for your plan. |
-| `ModelNotFound`             | The model does not exist, check the `model_id`. |
-| `TagNotFound`               | The tag does not exist, check the `tag_id` parameter. |
+| `ModelNotFound`             | The model does not exist. Check the `model_id`. |
+| `TagNotFound`               | The tag does not exist. Check the `tag_id` parameter. |
 | `PlanQueryLimitError`       | You have reached the monthly query limit for your plan. Consider upgrading your plan. More about [Plan query limits](https://monkeylearn.com/api/v3/#query-limits). |
-| `PlanRateLimitError`        | You have sent too many requests in the last minute. Check the exception detail. More about [Plan rate limit](https://monkeylearn.com/api/v3/#plan-rate-limit). |
-| `ConcurrencyRateLimitError` | You have sent too many requests in the last second. Check the exception detail. More about [Concurrency rate limit](https://monkeylearn.com/api/v3/#concurrecy-rate-limit). |
-| `ModuleStateError`          | The state of the module is invalid. Check the exception detail. |
+| `PlanRateLimitError`        | You have sent too many requests in the last minute. Check the exception details. More about [Plan rate limit](https://monkeylearn.com/api/v3/#plan-rate-limit). |
+| `ConcurrencyRateLimitError` | You have sent too many requests in the last second. Check the exception details. More about [Concurrency rate limit](https://monkeylearn.com/api/v3/#concurrecy-rate-limit). |
+| `ModuleStateError`          | The state of the module is invalid. Check the exception details. |
 
 
 Available endpoints
 ------------------------
 
-These are all the endpoints of the API. For more information about each endpoint, check out the [API documentation](https://monkeylearn.com/api/v3/).
+The following are all the endpoints of the API. For more information about each endpoint, check out the [API documentation](https://monkeylearn.com/api/v3/).
 
 ### Classifiers
 
@@ -143,15 +143,15 @@ Parameters:
 
 | Parameter          |Type               | Description                                               |
 |--------------------|-------------------|-----------------------------------------------------------|
-|*model_id*          |`String`              |Classifier ID. Always starts with `'cl'`, for example `'cl_oJNMkt2V'`. |
-|*data*              |`Array[String or Hash]`|A list of up to 200 data elements to classify. Each element must be a *String* with the text or a *Hash* with the required `text` key and the text as the value and an optional `external_id` key with a string that will be included in the response.  |
+|*model_id*          |`String`              |Classifier ID. It always starts with `'cl'`, for example `'cl_oJNMkt2V'`. |
+|*data*              |`Array[String or Hash]`|A list of up to 200 data elements to classify. Each element must be a *String* with the text or a *Hash* with the required `text` key and the text as the value. You can provide an optional `external_id` key with a string that will be included in the response.  |
 |*options*           |`Hash`             | Extra options, see below.
 
 Extra option parameters:
 
 | Parameter          |Type               |Default               | Description                                               |
 |--------------------|-------------------|----------------------|-----------------------------------------------------------|
-|*production_model*  |`Boolean`          | `False`              | Indicates if the classifications are performed by the production model. Only use this parameter with *custom models* (not with the public ones). Note that you first need to deploy the production model from the UI model settings or using the [Classifier deploy endpoint](#deploy). |
+|*production_model*  |`Boolean`          | `False`              | Indicates if the classifications are performed by the production model. Only use this parameter with *custom models* (not with the public ones). Note that you first need to deploy your model to production either from the UI model settings or by using the [Classifier deploy endpoint](#deploy). |
 |*batch_size*        |`Integer`          | `200`                  | Max amount of texts each request will send to Monkeylearn. A number from 1 to 200. |
 
 
@@ -175,7 +175,7 @@ Parameters:
 
 | Parameter          |Type               | Description                                               |
 |--------------------|-------------------|-----------------------------------------------------------|
-|*model_id*          |`String`           |Classifier ID. Always starts with `'cl'`, for example `'cl_oJNMkt2V'`. |
+|*model_id*          |`String`           |Classifier ID. It always starts with `'cl'`, for example, `'cl_oJNMkt2V'`. |
 
 Example:
 
@@ -206,13 +206,13 @@ Extra option parameters:
 description | `String` | `''` | The description of the model.
 algorithm | `String` | `'nb'` | The [algorithm](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-changing-the-algorithm) used when training the model. It can either be "nb" or "svm".
 language | `String` | `'en'` | The [language](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-language) of the model. Full list of [supported languages](https://monkeylearn.com/api/v3/#classifier-detail).
-max_features | `Integer` | `10000` | The [maximum amount of features](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-max-features) used when training the model. Between 10 and 100000.
-ngram_range | `Array` | `[1,1]` | Indicates which [N-gram range](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-n-gram-range) used when training the model. A list of two numbers between 1 and 3. The first one indicates the minimum and the second one the maximum N for the N-grams used.
+max_features | `Integer` | `10000` | The [maximum number of features](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-max-features) used when training the model. Between 10 and 100000.
+ngram_range | `Array` | `[1,1]` | Indicates which [n-gram range](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-n-gram-range) is used when training the model. It's a list of two numbers between 1 and 3. They indicate the minimum and the maximum n for the n-grams used, respectively.
 use_stemming | `Boolean`|  `true`| Indicates whether [stemming](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-stemming) is used when training the model.
 preprocess_numbers | `Boolean` | `true` | Indicates whether [number preprocessing](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-preprocess-numbers) is done when training the model.
 preprocess_social_media | `Boolean` | `false` | Indicates whether [preprocessing for social media](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-social-media-preprocessing-and-regular-expressions) is done when training the model.
 normalize_weights | `Boolean` | `true` | Indicates whether [weights will be normalized](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-normalize-weights) when training the model.
-stopwords | `Boolean or Array` | `true` | The list of [stopwords](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-filter-stopwords) used when training the model. Use false for no stopwords, true for the default stopwords, or an array of strings for custom stopwords.
+stopwords | `Boolean or Array` | `true` | The list of [stopwords](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-filter-stopwords) used when training the model. Use *false* for no stopwords, *true* for the default stopwords, or an array of strings for custom stopwords.
 whitelist | `Array` | `[]` | The [whitelist](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-whitelist) of words used when training the model.
 
 Example:
@@ -234,7 +234,7 @@ Parameters:
 
 Parameter  |Type     |Description
 -----------|---------|-----------
-*model_id* |`String` |Classifier ID. Always starts with `'cl'`, for example `'cl_oJNMkt2V'`. |
+*model_id* |`String` |Classifier ID. It always starts with `'cl'`, for example, `'cl_oJNMkt2V'`. |
 *options*    |`Hash`   |Extra optional parameters, see below.
 
 Extra option parameters:
@@ -245,13 +245,13 @@ name | `String` | The name of the model.
 description | `String` | The description of the model.
 algorithm | `String` | The [algorithm](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-changing-the-algorithm) used when training the model. It can either be "nb" or "svm".
 language | `String` | The [language](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-language) of the model. Full list of [supported languages](https://monkeylearn.com/api/v3/#classifier-detail).
-max_features | `Integer` | The [maximum amount of features](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-max-features) used when training the model. Between 10 and 100000.
-ngram_range | `Array` | Indicates which [N-gram range](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-n-gram-range) used when training the model. A list of two numbers between 1 and 3. The first one indicates the minimum and the second one the maximum N for the N-grams used.
+max_features | `Integer` | The [maximum number of features](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-max-features) used when training the model. Between 10 and 100000.
+ngram_range | `Array` | Indicates which [n-gram range](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-n-gram-range) used when training the model. A list of two numbers between 1 and 3. They indicate the minimum and the maximum n for the n-grams used, respectively.
 use_stemming | `Boolean`| Indicates whether [stemming](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-stemming) is used when training the model.
 preprocess_numbers | `Boolean` | Indicates whether [number preprocessing](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-preprocess-numbers) is done when training the model.
 preprocess_social_media | `Boolean` | Indicates whether [preprocessing for social media](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-social-media-preprocessing-and-regular-expressions) is done when training the model.
 normalize_weights | `Boolean` | Indicates whether [weights will be normalized](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-normalize-weights) when training the model.
-stopwords | `Boolean or Array` |  The list of [stopwords](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-filter-stopwords) used when training the model. Use false for no stopwords, true for the default stopwords, or an array of strings for custom stopwords.
+stopwords | `Boolean or Array` |  The list of [stopwords](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-filter-stopwords) used when training the model. Use *false* for no stopwords, *true* for the default stopwords, or an array of strings for custom stopwords.
 whitelist | `Array` | The [whitelist](http://help.monkeylearn.com/tips-and-tricks-for-custom-modules/parameters-whitelist) of words used when training the model.
 
 Example:
@@ -272,7 +272,7 @@ Parameters:
 
 | Parameter          |Type               | Description                                               |
 |--------------------|-------------------|-----------------------------------------------------------|
-|*model_id*          |`String`              |Classifier ID. Always starts with `'cl'`, for example `'cl_oJNMkt2V'`. |
+|*model_id*          |`String`              |Classifier ID. It always starts with `'cl'`, for example, `'cl_oJNMkt2V'`. |
 
 Example:
 
@@ -294,7 +294,7 @@ Extra option parameters:
 |Parameter           |Type               |Default            | Description |
 |--------------------|-------------------|-------------------|-------------|
 |*page*              |`Integer`          | `1`               | Specifies which page to get.|
-|*per_page*          |`Integer`          | `20`              | Specifies how many items to return per page. |
+|*per_page*          |`Integer`          | `20`              | Specifies how many items per page will be returned. |
 
 Example:
 
@@ -315,7 +315,7 @@ Parameters:
 
 | Parameter          |Type               | Description                                               |
 |--------------------|-------------------|-----------------------------------------------------------|
-|*model_id*          |`String`           |Classifier ID. Always starts with `'cl'`, for example `'cl_oJNMkt2V'`. |
+|*model_id*          |`String`           |Classifier ID. It always starts with `'cl'`, for example, `'cl_oJNMkt2V'`. |
 
 Example:
 
@@ -336,7 +336,7 @@ Parameters:
 
 | Parameter          |Type               | Description                                               |
 |--------------------|-------------------|-----------------------------------------------------------|
-|*model_id*          |`String`           |Classifier ID. Always starts with `'cl'`, for example `'cl_oJNMkt2V'`. |
+|*model_id*          |`String`           |Classifier ID. It always starts with `'cl'`, for example, `'cl_oJNMkt2V'`. |
 |*tag_id*            |`Integer`          |Tag ID. |
 
 Example:
@@ -358,7 +358,7 @@ Parameters:
 
 | Parameter          |Type      | Description                                               |
 |--------------------|----------|-----------------------------------------------------------|
-|*model_id*          |`String   |Classifier ID. Always starts with `'cl'`, for example `'cl_oJNMkt2V'`. |
+|*model_id*          |`String   |Classifier ID. It always starts with `'cl'`, for example, `'cl_oJNMkt2V'`. |
 |*name*              |`String`  |The name of the new tag. |
 |*options*           |`Hash`    |Extra optional parameters, see below. |
 
@@ -387,7 +387,7 @@ Parameters:
 
 | Parameter          |Type               | Description                                               |
 |--------------------|-------------------|-----------------------------------------------------------|
-|*model_id*          |`String`           |Classifier ID. Always starts with `'cl'`, for example `'cl_oJNMkt2V'`. |
+|*model_id*          |`String`           |Classifier ID. It always starts with `'cl'`, for example, `'cl_oJNMkt2V'`. |
 |*tag_id*            |`Integer`          |Tag ID. |
 |*options*           |`Hash`             |Extra optional parameters, see below. |
 
@@ -417,7 +417,7 @@ Parameters:
 
 | Parameter     |Type               | Description                                               |
 |---------------|-------------------|-----------------------------------------------------------|
-|*model_id*     |`String`           |Classifier ID. Always starts with `'cl'`, for example `'cl_oJNMkt2V'`. |
+|*model_id*     |`String`           |Classifier ID. It always starts with `'cl'`, for example, `'cl_oJNMkt2V'`. |
 |*tag_id*       |`Integer`          |Tag ID. |
 |*options*      |`Hash`             |Extra optional parameters, see below. |
 
@@ -425,7 +425,7 @@ Extra option parameters:
 
 | Parameter          |Type               |Default               | Description                                               |
 |--------------------|-------------------|----------------------|-----------------------------------------------------------|
-|*move_data_to*      |`int`              |`nil`                 |An optional tag ID. If provided, training data associated with the tag will be moved to the specified tag before deletion. |
+|*move_data_to*      |`int`              |`nil`                 |An optional tag ID. If provided, training data associated with the tag to be deleted will be moved to the specified tag before deletion. |
 
 Example:
 
@@ -446,7 +446,7 @@ Parameters:
 
 | Parameter          |Type               | Description                                               |
 |--------------------|-------------------|-----------------------------------------------------------|
-|*model_id*          |`String`           |Classifier ID. Always starts with `'cl'`, for example `'cl_oJNMkt2V'`. |
+|*model_id*          |`String`           |Classifier ID. It always starts with `'cl'`, for example, `'cl_oJNMkt2V'`. |
 |*data*              |`Array[Hash]`      |A list of hashes with the keys described below.
 
 `data` hash keys:
@@ -455,7 +455,7 @@ Parameters:
 |---------       | ----------- |
 |text | A *String* of the text to upload.|
 |tags | An optional *Array* of tag ID integers. The text will be tagged with each of these tags.|
-|marks | An optional *Array* of *String*. Each one represents a mark that will be associated with the text. Marks will be created if needed.|
+|marks | An optional *Array* of *String*. Each string represents a mark that will be associated with the text. Marks will be created if needed.|
 
 Example:
 
@@ -483,16 +483,16 @@ Parameters:
 
 | Parameter          |Type               | Description                                               |
 |--------------------|-------------------|-----------------------------------------------------------|
-|*model_id*          |`String`              |Extractor ID. Always starts with `'ex'`, for example `'ex_oJNMkt2V'`. |
-|*data*              |`Array[String or Hash]`|A list of up to 200 data elements to extract. Each element must be a *string* with the text or a *dict* with the required `text` key and the text as the value and an optional `external_id` key with a string that will be included in the response.  |
+|*model_id*          |`String`              |Extractor ID. It always starts with `'ex'`, for example, `'ex_oJNMkt2V'`. |
+|*data*              |`Array[String or Hash]`|A list of up to 200 data elements to extract from. Each element must be a *string* with the text or a *dict* with the required `text` key and the text as the value. You can also provide an optional `external_id` key with a string that will be included in the response.  |
 |*options*           |`Hash`             | Extra options, see below.
 
 Extra option parameters:
 
 | Parameter          |Type               |Default               | Description                                               |
 |--------------------|-------------------|----------------------|-----------------------------------------------------------|
-|*production_model*  |`Boolean`          | `False`              | Indicates if the extractions are performed by the production model. Only use this parameter with *custom models* (not with the public ones). Note that you first need to deploy the production model from the UI model settings or using the [Classifier deploy endpoint](#deploy). |
-|*batch_size*        |`Integer`          | 200                  | Max amount of texts each request will send to MonkeyLearn. A number from 1 to 200. |
+|*production_model*  |`Boolean`          | `False`              | Indicates if the extractions are performed by the production model. Only use this parameter with *custom models* (not with the public ones). Note that you first need to deploy the model to production either from the UI model settings or by using the [Classifier deploy endpoint](#deploy). |
+|*batch_size*        |`Integer`          | 200                  | Max number of texts each request will send to MonkeyLearn. A number from 1 to 200. |
 
 Example:
 
@@ -514,7 +514,7 @@ Parameters:
 
 | Parameter          |Type               | Description                                               |
 |--------------------|-------------------|-----------------------------------------------------------|
-|*model_id*          |`String`           |Extractor ID. Always starts with `'ex'`, for example `'ex_oJNMkt2V'`. |
+|*model_id*          |`String`           |Extractor ID. It always starts with `'ex'`, for example, `'ex_oJNMkt2V'`. |
 
 Example:
 
@@ -536,7 +536,7 @@ Parameters:
 |Parameter           |Type               |Default            | Description |
 |--------------------|-------------------|-------------------|-------------|
 |*page*              |`Integer`          | `1`               | Specifies which page to get.|
-|*per_page*          |`Integer`          | `20`              | Specifies how many items to return per page. |
+|*per_page*          |`Integer`          | `20`              | Specifies how many items per page will be returned. |
 
 Example:
 
