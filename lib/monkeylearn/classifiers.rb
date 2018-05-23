@@ -140,7 +140,13 @@ module Monkeylearn
 
       def delete(module_id, tag_id, options = {})
         endpoint = build_endpoint(module_id, tag_id)
-        request(:delete, endpoint)
+
+        data = nil
+        if options.key?(:move_data_to)
+          data = {move_data_to: options[:move_data_to]}
+        end
+
+        request(:delete, endpoint, data)
       end
     end
   end
