@@ -395,7 +395,8 @@ Extra option parameters:
 
 | Parameter          |Type               | Description                                               |
 |--------------------|-------------------|-----------------------------------------------------------|
-|*name*    |`String`  |The new name of the tag. |
+|*name*              |`String`           |The new name of the tag. |
+|*parent_id*         |`Integer`          |**DEPRECATED**. The new parent tag ID.
 
 Example:
 
