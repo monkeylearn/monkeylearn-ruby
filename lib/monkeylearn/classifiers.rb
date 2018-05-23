@@ -137,11 +137,11 @@ module Monkeylearn
         request :get, build_endpoint(module_id, tag_id)
       end
 
-      def edit(module_id, tag_id, name = nil, parent_id = nil)
+      def edit(module_id, tag_id, options = {})
         endpoint = build_endpoint(module_id, tag_id)
         data = {
-          name: name,
-          parent_id: parent_id
+          name: options[:name],
+          parent_id: options[:parent_id]
         }.delete_if { |k,v| v.nil? }
         request :patch, endpoint, data
       end
