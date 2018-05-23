@@ -429,7 +429,7 @@ Extra option parameters:
 Example:
 
 ```ruby
-response = Monkeylearn.classifiers.tags.delete("[MODEL_ID]", 25, move_data_to: 20)
+Monkeylearn.classifiers.tags.delete("[MODEL_ID]", 25)
 ```
 
 <br>
@@ -461,8 +461,8 @@ Example:
 ```ruby
 response = Monkeylearn.classifiers.upload_data(
   "[MODEL_ID]",
-  [{text: "text 1", tags: [15, 20]},
-   {text: "text 2", tags: [20]}]
+  [{text: "text 1", tags: [TAG_ID_1]},
+   {text: "text 2", tags: [TAG_ID_1, TAG_ID_2]}]
 )
 ```
 
@@ -540,5 +540,5 @@ Parameters:
 Example:
 
 ```ruby
-response = Monkeylearn.extractors.list(page: 2)
+response = Monkeylearn.extractors.list(page: 1)
 ```
