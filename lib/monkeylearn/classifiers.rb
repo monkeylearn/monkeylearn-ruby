@@ -148,7 +148,7 @@ module Monkeylearn
 
       def delete(module_id, tag_id, options = {})
         endpoint = build_endpoint(module_id, tag_id)
-        request(:delete, endpoint, data)
+        request(:delete, endpoint)
       end
     end
   end
