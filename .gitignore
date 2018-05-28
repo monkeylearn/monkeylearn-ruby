@@ -1,2 +1,5 @@
 .gs
 *.gem
+.gems/
+.rbenv-gemsets
+.ruby-version

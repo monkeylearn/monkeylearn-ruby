@@ -20,26 +20,41 @@ module Monkeylearn
         if batch_size >  max_size
           raise MonkeylearnError, "The param batch_size is too big, max value is #{max_size}."
         end
-        min_size = Monkeylearn::Defaults.min_batch_size
-        if batch_size <  min_size
-          raise MonkeylearnError, "The param batch_size is too small, min value is #{min_size}."
-        end
         true
       end
 
-      def extract(module_id, texts, options = {})
+      def extract(module_id, data, options = {})
         options[:batch_size] ||= Monkeylearn::Defaults.default_batch_size
         batch_size = options[:batch_size]
         validate_batch_size batch_size
 
         endpoint = build_endpoint(module_id, 'extract')
 
-        responses = (0...texts.length).step(batch_size).collect do |start_idx|
-          data = { text_list: texts.slice(start_idx, batch_size) }
-          response = request :post, endpoint, data
+        if Monkeylearn.auto_batch
+          responses = (0...data.length).step(batch_size).collect do |start_idx|
+            sliced_data = {data: data.slice(start_idx, batch_size)}
+            if options.key? :production_model
+              sliced_data[:production_model] = options[:production_model]
+            end
+            request(:post, endpoint, sliced_data)
+          end
+          return Monkeylearn::MultiResponse.new(responses)
+        else
+          body = {data: data}
+          if options.key? :production_model
+              body[:production_model] = options[:production_model]
+          end
+          return request(:post, endpoint, body)
         end
 
-        Monkeylearn::MultiResponse.new(responses)
+      end
+
+      def list(options = {})
+        request(:get, build_endpoint, nil, options)
+      end
+
+      def detail(module_id)
+        request(:get, build_endpoint(module_id))
       end
     end
   end

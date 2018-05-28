@@ -2,7 +2,6 @@ require 'monkeylearn/configurable'
 require 'monkeylearn/exceptions'
 require 'monkeylearn/classifiers'
 require 'monkeylearn/extractors'
-require 'monkeylearn/pipelines'
 
 
 module Monkeylearn
