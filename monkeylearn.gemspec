@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email = ['hello@monkeylearn.com']
   spec.homepage = 'https://github.com/monkeylearn/monkeylearn-ruby'
 
-  spec.version = '3.0.0'
+  spec.version = '3.0.1'
 
   spec.add_dependency 'faraday', '>= 0.9.2'
 
