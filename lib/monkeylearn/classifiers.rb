@@ -88,6 +88,10 @@ module Monkeylearn
         request(:get, build_endpoint(module_id))
       end
 
+      def train(module_id)
+        request(:post, build_endpoint(module_id, 'train'), api_version: :v2)
+      end
+
       def deploy(module_id)
         request(:post, build_endpoint(module_id, 'deploy'))
       end
