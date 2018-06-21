@@ -3,7 +3,6 @@ require 'monkeylearn/defaults'
 module Monkeylearn
   module Configurable
     attr_accessor :token, :base_url, :retry_if_throttle, :auto_batch
-    attr_writer :base_url
 
     class << self
       def keys
