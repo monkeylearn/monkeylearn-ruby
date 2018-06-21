@@ -1,4 +1,5 @@
 require 'monkeylearn/requests'
+require 'monkeylearn/validators'
 
 module Monkeylearn
   class << self
@@ -19,19 +20,8 @@ module Monkeylearn
         File.join('classifiers', *args) + '/'
       end
 
-      def validate_batch_size(batch_size)
-        max_size = Monkeylearn::Defaults.max_batch_size
-        if batch_size >  max_size
-          raise MonkeylearnError, "The param batch_size is too big, max value is #{max_size}."
-        end
-        true
-      end
-
       def classify(model_id, data, options = {})
-        options[:batch_size] ||= Monkeylearn::Defaults.default_batch_size
-        batch_size = options[:batch_size]
-        validate_batch_size batch_size
-
+        batch_size = Monkeylearn::Validators.validate_batch_size(options[:batch_size])
         endpoint = build_endpoint(model_id, 'classify')
 
         if Monkeylearn.auto_batch
