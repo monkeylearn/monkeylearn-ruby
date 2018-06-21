@@ -40,7 +40,7 @@ module Monkeylearn
             if options.key? :production_model
               sliced_data[:production_model] = options[:production_model]
             end
-            request(:post, endpoint, sliced_data)
+            request(:post, endpoint, data: sliced_data)
           end
 
           return Monkeylearn::MultiResponse.new(responses)
@@ -49,12 +49,12 @@ module Monkeylearn
           if options.key? :production_model
               body[:production_model] = options[:production_model]
           end
-          return request(:post, endpoint, body)
+          return request(:post, endpoint, data: body)
         end
       end
 
       def list(options = {})
-        request(:get, build_endpoint, nil, options)
+        request(:get, build_endpoint, query_params: options)
       end
 
       def create(name, options = {})
@@ -72,7 +72,7 @@ module Monkeylearn
             stopwords: options[:stopwords],
             whitelist: options[:whitelist],
         }.delete_if { |k,v| v.nil? }
-        request(:post, build_endpoint, data)
+        request(:post, build_endpoint, data: data)
       end
 
       def edit(module_id, options = {})
@@ -90,7 +90,7 @@ module Monkeylearn
             stopwords: options[:stopwords],
             whitelist: options[:whitelist],
         }.delete_if { |k,v| v.nil? }
-        request(:patch, build_endpoint(module_id), data)
+        request(:patch, build_endpoint(module_id), data: data)
       end
 
       def detail(module_id)
@@ -104,7 +104,7 @@ module Monkeylearn
       def upload_data(module_id, data)
         endpoint = build_endpoint(module_id, 'data')
 
-        request(:post, endpoint, {data: data})
+        request(:post, endpoint, data: {data: data})
       end
 
       def delete(module_id)
@@ -128,7 +128,7 @@ module Monkeylearn
         if options[:parent_id]
           data[:parent_id] = options[:parent_id]
         end
-        request(:post, build_endpoint(module_id), data)
+        request(:post, build_endpoint(module_id), data: data)
       end
 
       def detail(module_id, tag_id)
@@ -152,7 +152,7 @@ module Monkeylearn
           data = {move_data_to: options[:move_data_to]}
         end
 
-        request(:delete, endpoint, data)
+        request(:delete, endpoint, data: data)
       end
     end
   end

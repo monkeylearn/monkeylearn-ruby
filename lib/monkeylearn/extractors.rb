@@ -36,7 +36,7 @@ module Monkeylearn
             if options.key? :production_model
               sliced_data[:production_model] = options[:production_model]
             end
-            request(:post, endpoint, sliced_data)
+            request(:post, endpoint, data: sliced_data)
           end
           return Monkeylearn::MultiResponse.new(responses)
         else
@@ -44,13 +44,13 @@ module Monkeylearn
           if options.key? :production_model
               body[:production_model] = options[:production_model]
           end
-          return request(:post, endpoint, body)
+          return request(:post, endpoint, data: body)
         end
 
       end
 
       def list(options = {})
-        request(:get, build_endpoint, nil, options)
+        request(:get, build_endpoint, query_params: options)
       end
 
       def detail(module_id)

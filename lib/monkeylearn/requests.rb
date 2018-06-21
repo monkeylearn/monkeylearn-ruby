@@ -5,7 +5,7 @@ require 'monkeylearn/exceptions'
 
 module Monkeylearn
   module Requests
-    def request(method, path, data = nil, query_params = nil)
+    def request(method, path, data: nil, query_params: nil)
       unless Monkeylearn.token
         raise MonkeylearnError, 'Please initialize the Monkeylearn library with your API token'
       end
