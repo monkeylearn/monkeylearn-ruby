@@ -3,8 +3,10 @@ module Monkeylearn
     # Constants
     DEFAULT_BATCH_SIZE = 200
     MAX_BATCH_SIZE = 200
+    SUPPORTED_API_VERSIONS = [:v2, :v3]
     # Configurable options
-    BASE_URL = 'https://api.monkeylearn.com/v3/'
+    BASE_URL = 'https://api.monkeylearn.com/'
+    API_VERSION = SUPPORTED_API_VERSIONS.last
     RETRY_IF_THROTTLE = true
     AUTO_BATCH = true
 
@@ -15,6 +17,10 @@ module Monkeylearn
 
       def base_url
         ENV['MONKEYLEARN_API_BASE_URL'] || BASE_URL
+      end
+
+      def api_version
+        ENV['MONKEYLEARN_API_VERSION'] || API_VERSION
       end
 
       def token
@@ -35,6 +41,10 @@ module Monkeylearn
 
       def default_batch_size
         DEFAULT_BATCH_SIZE
+      end
+
+      def supported_api_versions
+        SUPPORTED_API_VERSIONS
       end
     end
   end

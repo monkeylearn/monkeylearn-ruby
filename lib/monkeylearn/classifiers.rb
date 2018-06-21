@@ -22,6 +22,7 @@ module Monkeylearn
 
       def classify(model_id, data, options = {})
         batch_size = Monkeylearn::Validators.validate_batch_size(options[:batch_size])
+        api_version = Monkeylearn::Validators.validate_api_version(options[:api_version])
         endpoint = build_endpoint(model_id, 'classify')
 
         if Monkeylearn.auto_batch
@@ -30,7 +31,7 @@ module Monkeylearn
             if options.key? :production_model
               sliced_data[:production_model] = options[:production_model]
             end
-            request(:post, endpoint, data: sliced_data)
+            request(:post, endpoint, data: sliced_data, api_version: api_version)
           end
 
           return Monkeylearn::MultiResponse.new(responses)
@@ -39,7 +40,7 @@ module Monkeylearn
           if options.key? :production_model
               body[:production_model] = options[:production_model]
           end
-          return request(:post, endpoint, data: body)
+          return request(:post, endpoint, data: body, api_version: api_version)
         end
       end
 

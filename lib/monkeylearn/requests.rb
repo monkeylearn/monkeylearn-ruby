@@ -2,20 +2,23 @@ require 'faraday'
 require 'json'
 require 'monkeylearn/response'
 require 'monkeylearn/exceptions'
+require 'monkeylearn/validators'
 
 module Monkeylearn
   module Requests
-    def request(method, path, data: nil, query_params: nil)
+    def request(method, path, data: nil, query_params: nil, api_version: nil)
       unless Monkeylearn.token
         raise MonkeylearnError, 'Please initialize the Monkeylearn library with your API token'
       end
 
+      api_version = Monkeylearn::Validators.validate_api_version(api_version)
+      url = "#{api_version}/#{path}"
+      if query_params
+        url += '?' + URI.encode_www_form(query_params)
+      end
+
       while true
         response = get_connection.send(method) do |req|
-          url = path.to_s
-          if query_params
-            url += '?' + URI.encode_www_form(query_params)
-          end
           req.url url
           req.headers['Authorization'] = 'Token ' + Monkeylearn.token
           req.headers['Content-Type'] = 'application/json'
@@ -37,7 +40,7 @@ module Monkeylearn
         raise_for_status(response)
       end
 
-      Monkeylearn::Response.new(response)
+      Monkeylearn::Response.new(response, api_version: api_version)
     end
 
     def raise_for_status(raw_response)

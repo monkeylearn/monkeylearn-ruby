@@ -1,10 +1,15 @@
+require 'monkeylearn/validators'
+
 module Monkeylearn
   class Response
     attr_reader :raw_response, :status, :body, :plan_queries_allowed, :plan_queries_remaining, :request_queries_used
 
-    def initialize(raw_response)
+    def initialize(raw_response, api_version: nil)
       self.raw_response = raw_response
-      @symbolize_keys = true
+      api_version = Monkeylearn::Validators.validate_api_version(api_version)
+      # As we only support v2 and v3, this check should be fine. We cannot check
+      # for `Defaults.api_version` as that may be overwritten by `ENV`.
+      @symbolize_keys = api_version == :v3
     end
 
     def raw_response=(raw_response)

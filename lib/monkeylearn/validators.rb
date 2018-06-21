@@ -9,6 +9,15 @@ module Monkeylearn
         end
         size
       end
+
+      def validate_api_version(version)
+        version ||= Monkeylearn::Defaults.api_version
+        supported_versions = Monkeylearn::Defaults.supported_api_versions
+        unless supported_versions.include? version
+          raise MonkeylearnError, "The param api_version `#{version}` is not supported, choose from #{supported_versions.join(', ')}."
+        end
+        version
+      end
     end
   end
 end
