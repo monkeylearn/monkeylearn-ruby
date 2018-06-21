@@ -1,4 +1,5 @@
 require 'monkeylearn/requests'
+require 'monkeylearn/validators'
 
 module Monkeylearn
   class << self
@@ -19,19 +20,9 @@ module Monkeylearn
         File.join('classifiers', *args) + '/'
       end
 
-      def validate_batch_size(batch_size)
-        max_size = Monkeylearn::Defaults.max_batch_size
-        if batch_size >  max_size
-          raise MonkeylearnError, "The param batch_size is too big, max value is #{max_size}."
-        end
-        true
-      end
-
       def classify(model_id, data, options = {})
-        options[:batch_size] ||= Monkeylearn::Defaults.default_batch_size
-        batch_size = options[:batch_size]
-        validate_batch_size batch_size
-
+        batch_size = Monkeylearn::Validators.validate_batch_size(options[:batch_size])
+        api_version = Monkeylearn::Validators.validate_api_version(options[:api_version])
         endpoint = build_endpoint(model_id, 'classify')
 
         if Monkeylearn.auto_batch
@@ -40,7 +31,7 @@ module Monkeylearn
             if options.key? :production_model
               sliced_data[:production_model] = options[:production_model]
             end
-            request(:post, endpoint, sliced_data)
+            request(:post, endpoint, data: sliced_data, api_version: api_version)
           end
 
           return Monkeylearn::MultiResponse.new(responses)
@@ -49,12 +40,12 @@ module Monkeylearn
           if options.key? :production_model
               body[:production_model] = options[:production_model]
           end
-          return request(:post, endpoint, body)
+          return request(:post, endpoint, data: body, api_version: api_version)
         end
       end
 
       def list(options = {})
-        request(:get, build_endpoint, nil, options)
+        request(:get, build_endpoint, query_params: options)
       end
 
       def create(name, options = {})
@@ -72,7 +63,7 @@ module Monkeylearn
             stopwords: options[:stopwords],
             whitelist: options[:whitelist],
         }.delete_if { |k,v| v.nil? }
-        request(:post, build_endpoint, data)
+        request(:post, build_endpoint, data: data)
       end
 
       def edit(module_id, options = {})
@@ -90,11 +81,15 @@ module Monkeylearn
             stopwords: options[:stopwords],
             whitelist: options[:whitelist],
         }.delete_if { |k,v| v.nil? }
-        request(:patch, build_endpoint(module_id), data)
+        request(:patch, build_endpoint(module_id), data: data)
       end
 
       def detail(module_id)
         request(:get, build_endpoint(module_id))
+      end
+
+      def train(module_id)
+        request(:post, build_endpoint(module_id, 'train'), api_version: :v2)
       end
 
       def deploy(module_id)
@@ -104,7 +99,7 @@ module Monkeylearn
       def upload_data(module_id, data)
         endpoint = build_endpoint(module_id, 'data')
 
-        request(:post, endpoint, {data: data})
+        request(:post, endpoint, data: {data: data})
       end
 
       def delete(module_id)
@@ -128,7 +123,7 @@ module Monkeylearn
         if options[:parent_id]
           data[:parent_id] = options[:parent_id]
         end
-        request(:post, build_endpoint(module_id), data)
+        request(:post, build_endpoint(module_id), data: data)
       end
 
       def detail(module_id, tag_id)
@@ -152,7 +147,7 @@ module Monkeylearn
           data = {move_data_to: options[:move_data_to]}
         end
 
-        request(:delete, endpoint, data)
+        request(:delete, endpoint, data: data)
       end
     end
   end

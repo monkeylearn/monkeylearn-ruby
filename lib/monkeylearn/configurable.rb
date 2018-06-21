@@ -2,13 +2,13 @@ require 'monkeylearn/defaults'
 
 module Monkeylearn
   module Configurable
-    attr_accessor :token, :base_url, :retry_if_throttle, :auto_batch
-    attr_writer :base_url
+    attr_accessor :token, :base_url, :api_version, :retry_if_throttle, :auto_batch
 
     class << self
       def keys
         @keys ||= [
           :base_url,
+          :api_version,
           :token,
           :retry_if_throttle,
           :auto_batch,

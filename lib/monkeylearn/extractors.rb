@@ -1,4 +1,5 @@
 require 'monkeylearn/requests'
+require 'monkeylearn/validators'
 
 module Monkeylearn
   class << self
@@ -15,19 +16,9 @@ module Monkeylearn
         File.join('extractors', *args) + '/'
       end
 
-      def validate_batch_size(batch_size)
-        max_size = Monkeylearn::Defaults.max_batch_size
-        if batch_size >  max_size
-          raise MonkeylearnError, "The param batch_size is too big, max value is #{max_size}."
-        end
-        true
-      end
-
       def extract(module_id, data, options = {})
-        options[:batch_size] ||= Monkeylearn::Defaults.default_batch_size
-        batch_size = options[:batch_size]
-        validate_batch_size batch_size
-
+        batch_size = Monkeylearn::Validators.validate_batch_size(options[:batch_size])
+        api_version = Monkeylearn::Validators.validate_api_version(options[:api_version])
         endpoint = build_endpoint(module_id, 'extract')
 
         if Monkeylearn.auto_batch
@@ -36,7 +27,7 @@ module Monkeylearn
             if options.key? :production_model
               sliced_data[:production_model] = options[:production_model]
             end
-            request(:post, endpoint, sliced_data)
+            request(:post, endpoint, data: sliced_data, api_version: api_version)
           end
           return Monkeylearn::MultiResponse.new(responses)
         else
@@ -44,13 +35,13 @@ module Monkeylearn
           if options.key? :production_model
               body[:production_model] = options[:production_model]
           end
-          return request(:post, endpoint, body)
+          return request(:post, endpoint, data: body, api_version: api_version)
         end
 
       end
 
       def list(options = {})
-        request(:get, build_endpoint, nil, options)
+        request(:get, build_endpoint, query_params: options)
       end
 
       def detail(module_id)
