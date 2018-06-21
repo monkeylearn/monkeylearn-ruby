@@ -35,7 +35,6 @@ module Monkeylearn
 
     def responses=(responses)
       @responses = responses
-      @query_limit_remaining = responses[-1].raw_response.headers['X-Query-Limit-Remaining'].to_i
       @plan_queries_allowed = @responses[-1].plan_queries_allowed
       @plan_queries_remaining = @responses[-1].plan_queries_remaining
       @request_queries_used = @responses.inject(0){|sum, r| sum + r.request_queries_used }
