@@ -373,6 +373,27 @@ response = Monkeylearn.classifiers.list(page: 1, per_page: 5)
 
 <br>
 
+#### [Train](https://monkeylearn.com/api/v3/?shell#train)
+
+
+```ruby
+Monkeylearn.classifiers.train(model_id)
+```
+
+Parameters:
+
+| Parameter          |Type               | Description                                               |
+|--------------------|-------------------|-----------------------------------------------------------|
+|*model_id*          |`String`           |Classifier ID. It always starts with `'cl'`, for example, `'cl_oJNMkt2V'`. |
+
+Example:
+
+```ruby
+Monkeylearn.classifiers.train('[MODEL_ID]')
+```
+
+<br>
+
 #### [Deploy](https://monkeylearn.com/api/v3/?shell#deploy)
 
 

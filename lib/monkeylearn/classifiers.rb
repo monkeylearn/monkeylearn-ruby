@@ -101,6 +101,10 @@ module Monkeylearn
         request(:post, build_endpoint(module_id, 'deploy'))
       end
 
+      def train(module_id)
+        request(:post, build_endpoint(module_id, 'train'))
+      end
+
       def upload_data(module_id, data)
         endpoint = build_endpoint(module_id, 'data')
 
