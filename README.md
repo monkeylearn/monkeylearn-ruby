@@ -179,9 +179,7 @@ responses = (0...data.length).step(batch_size).collect do |start_idx|
     rescue ConcurrencyRateLimitError
       sleep 2
     rescue PlanRateLimitError => e
-      match = /([\d]+) seconds/.match(e.detail)
-      seconds = if match then match[1].to_i else 60 end
-      sleep seconds
+      sleep e.seconds_to_wait
     end
   end
   response

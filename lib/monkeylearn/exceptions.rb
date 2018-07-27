@@ -9,12 +9,10 @@ class MonkeylearnResponseError < MonkeylearnError
   def initialize(raw_response)
     @response = raw_response
 
-
     body = JSON.parse(raw_response.body)
     @detail = body['detail']
     @error_code = body['error_code']
     @status_code = raw_response.status
-
 
     super "#{@error_code}: #{@detail}"
   end
@@ -64,6 +62,14 @@ end
 
 
 class PlanRateLimitError < RateLimitError
+  attr_accessor :seconds_to_wait
+
+  def initialize(raw_response)
+    body = JSON.parse(raw_response.body)
+    @seconds_to_wait =  body['seconds_to_wait'].to_i
+
+    super raw_response
+  end
 end
 
 
