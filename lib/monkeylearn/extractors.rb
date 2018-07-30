@@ -1,4 +1,5 @@
 require 'monkeylearn/requests'
+require 'monkeylearn/param_validation'
 
 module Monkeylearn
   class << self
@@ -50,7 +51,15 @@ module Monkeylearn
       end
 
       def list(options = {})
-        request(:get, build_endpoint, nil, options)
+        if options.key?(:order_by)
+          options[:order_by] = validate_order_by_param(options[:order_by])
+        end
+        query_params = {
+          page: options[:page],
+          per_page: options[:per_page],
+          order_by: options[:order_by]
+        }.delete_if { |k,v| v.nil? }
+        request(:get, build_endpoint, nil, query_params)
       end
 
       def detail(module_id)
