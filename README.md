@@ -353,7 +353,7 @@ Monkeylearn.classifiers.delete('[MODEL_ID]')
 
 
 ```ruby
-Monkeylearn.classifiers.list(page: 1, per_page: 20)
+Monkeylearn.classifiers.list(page: 1, per_page: 20, order_by: '-created')
 ```
 
 Optional parameters:
@@ -362,11 +362,12 @@ Optional parameters:
 |--------------------|-------------------|-------------------|-------------|
 |*page*              |`Integer`          | `1`               | Specifies which page to get.|
 |*per_page*          |`Integer`          | `20`              | Specifies how many items per page will be returned. |
+|*order_by*          |`String or Array`  |`'-created'`       | Specifies the ordering criteria. It must be a `String` with a valid field name, if you want inverse/descending order of the field prepend a `-` (dash) character. If you want to specify more than one field send an array of such `Strings`. Some valid examples: `is_public`, `'-name'` or `['-is_public', 'name']`. |
 
 Example:
 
 ```ruby
-response = Monkeylearn.classifiers.list(page: 1, per_page: 5)
+response = Monkeylearn.classifiers.list(page: 1, per_page: 5, order_by: '-name')
 ```
 
 <br>
@@ -626,9 +627,10 @@ Parameters:
 |--------------------|-------------------|-------------------|-------------|
 |*page*              |`Integer`          | `1`               | Specifies which page to get.|
 |*per_page*          |`Integer`          | `20`              | Specifies how many items per page will be returned. |
+|*order_by*          |`String or Array`  |`'-created'`       | Specifies the ordering criteria. It must be a `String` with a valid field name, if you want inverse/descending order of the field prepend a `-` (dash) character. If you want to specify more than one field send an array of such `Strings`. Some valid examples: `is_public`, `'-name'` or `['-is_public', 'name']`. |
 
 Example:
 
 ```ruby
-response = Monkeylearn.extractors.list(page: 1)
+response = Monkeylearn.extractors.list(page: 1, order_by: '-name')
 ```
