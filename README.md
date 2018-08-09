@@ -362,12 +362,12 @@ Optional parameters:
 |--------------------|-------------------|-------------------|-------------|
 |*page*              |`Integer`          | `1`               | Specifies which page to get.|
 |*per_page*          |`Integer`          | `20`              | Specifies how many items per page will be returned. |
-|*order_by*          |`String or Array`  |`'-created'`       | Specifies the ordering criteria. It must be a `String` with a valid field name, if you want inverse/descending order of the field prepend a `-` (dash) character. If you want to specify more than one field send an array of such `Strings`. Some valid examples: `is_public`, `'-name'` or `['-is_public', 'name']`. |
+|*order_by*          |`String or Array`  |`'-created'`       | Specifies the ordering criteria. It can either be a `String` for single criteria ordering or an array of `Strings`` for more than one. Each `String` must be a valid field name; if you want inverse/descending order of the field prepend a `-` (dash) character. Some valid examples are: `'is_public'`, `'-name'` or `['-is_public', 'name']`. |
 
 Example:
 
 ```ruby
-response = Monkeylearn.classifiers.list(page: 1, per_page: 5, order_by: '-name')
+response = Monkeylearn.classifiers.list(page: 2, per_page: 5, order_by: ['-is_public', 'name'])
 ```
 
 <br>
@@ -618,7 +618,7 @@ response = Monkeylearn.extractors.detail("[MODEL_ID]")
 
 
 ```ruby
-Monkeylearn.extractors.list(options = {})
+Monkeylearn.extractors.list(page: 1, per_page: 20, order_by: '-created')
 ```
 
 Parameters:
@@ -627,10 +627,10 @@ Parameters:
 |--------------------|-------------------|-------------------|-------------|
 |*page*              |`Integer`          | `1`               | Specifies which page to get.|
 |*per_page*          |`Integer`          | `20`              | Specifies how many items per page will be returned. |
-|*order_by*          |`String or Array`  |`'-created'`       | Specifies the ordering criteria. It must be a `String` with a valid field name, if you want inverse/descending order of the field prepend a `-` (dash) character. If you want to specify more than one field send an array of such `Strings`. Some valid examples: `is_public`, `'-name'` or `['-is_public', 'name']`. |
+|*order_by*          |`String or Array`  |`'-created'`       | Specifies the ordering criteria. It can either be a `String` for single criteria ordering or an array of `Strings` for more than one. Each `String` must be a valid field name; if you want inverse/descending order of the field prepend a `-` (dash) character. Some valid examples are: `'is_public'`, `'-name'` or `['-is_public', 'name']`. |
 
 Example:
 
 ```ruby
-response = Monkeylearn.extractors.list(page: 1, order_by: '-name')
+response = Monkeylearn.extractors.list(page: 2, per_page: 5, order_by: ['-is_public', 'name'])
 ```
