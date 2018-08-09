@@ -362,7 +362,7 @@ Optional parameters:
 |--------------------|-------------------|-------------------|-------------|
 |*page*              |`Integer`          | `1`               | Specifies which page to get.|
 |*per_page*          |`Integer`          | `20`              | Specifies how many items per page will be returned. |
-|*order_by*          |`String or Array`  |`'-created'`       | Specifies the ordering criteria. It can either be a `String` for single criteria ordering or an array of `Strings`` for more than one. Each `String` must be a valid field name; if you want inverse/descending order of the field prepend a `-` (dash) character. Some valid examples are: `'is_public'`, `'-name'` or `['-is_public', 'name']`. |
+|*order_by*          |`String or Array`  |`'-created'`       | Specifies the ordering criteria. It can either be a `String` for single criteria ordering or an array of `Strings` for more than one. Each `String` must be a valid field name; if you want inverse/descending order of the field prepend a `-` (dash) character. Some valid examples are: `'is_public'`, `'-name'` or `['-is_public', 'name']`. |
 
 Example:
 
