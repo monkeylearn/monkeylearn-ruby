@@ -544,7 +544,7 @@ Parameters:
 |---------       | ----------- |
 |text | A *String* of the text to upload.|
 |tags | An optional *Array* of tags that can be refered to by their numeric ID or their name. The text will be tagged with each tag in the *list* when created (in case it doesn't already exist on the model). Otherwise, its tags will be updated to the new ones. New tags will be created if they don't already exist.||
-|marks | An optional *Array* of *String*. Each one represents a mark that will be associated with the text. New marks will be created if they don't already exist.|
+|markers | An optional *Array* of *String*. Each one represents a marker that will be associated with the text. New markers will be created if they don't already exist.|
 
 
 Example:
