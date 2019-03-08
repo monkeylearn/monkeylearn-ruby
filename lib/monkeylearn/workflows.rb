@@ -20,8 +20,8 @@ module Monkeylearn
         return WorkflowData
       end
 
-      def metadata
-        return WorkflowMetadata
+      def custom_fields
+        return WorkflowCustomFields
       end
 
       def build_endpoint(*args)
@@ -35,7 +35,7 @@ module Monkeylearn
             db_name: options[:db_name],
             webhook_url: options[:webhook_url],
             steps: options[:steps],
-            metadata: options[:metadata],
+            custom_fields: options[:custom_fields],
             sources: options[:sources],
             actions: options[:actions],
         }.delete_if { |k,v| v.nil? }
@@ -72,12 +72,12 @@ module Monkeylearn
     end
   end
 
-  module WorkflowMetadata
+  module WorkflowCustomFields
     class << self
      include Monkeylearn::Requests
 
       def build_endpoint(module_id, *args)
-        File.join('workflows', module_id, 'metadata', *args.collect { |x| x.to_s }) + '/'
+        File.join('workflows', module_id, 'custom-fields', *args.collect { |x| x.to_s }) + '/'
       end
 
       def create(module_id, options = {})
