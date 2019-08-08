@@ -106,19 +106,16 @@ module Monkeylearn
       end
 
       def list(module_id, options = {})
-        data = {
+        query_params = {
           batch_id: options[:batch_id],
           is_processed: options[:is_processed],
           sent_to_process_date_from: options[:sent_to_process_date_from],
           sent_to_process_date_to: options[:sent_to_process_date_to],
-        }.delete_if { |k,v| v.nil? }
-
-        query_params = {
           page: options[:page],
           per_page: options[:per_page],
         }.delete_if { |k,v| v.nil? }
 
-        request(:get, build_endpoint(module_id), data, query_params)
+        request(:get, build_endpoint(module_id), nil, query_params)
       end
     end
   end
