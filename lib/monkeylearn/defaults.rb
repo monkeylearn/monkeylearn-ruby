@@ -22,11 +22,11 @@ module Monkeylearn
       end
 
       def retry_if_throttle
-        ENV['MONKEYLEARN_RETRY_IF_THROTTLE'] || RETRY_IF_THROTTLE
+        boolean_setting('MONKEYLEARN_RETRY_IF_THROTTLE', RETRY_IF_THROTTLE)
       end
 
       def auto_batch
-        ENV['MONKEYLEARN_AUTO_BATCH'] || AUTO_BATCH
+        boolean_setting('MONKEYLEARN_AUTO_BATCH', AUTO_BATCH)
       end
 
       def max_batch_size
@@ -35,6 +35,13 @@ module Monkeylearn
 
       def default_batch_size
         DEFAULT_BATCH_SIZE
+      end
+
+      private
+
+      def boolean_setting(key, default)
+        return default unless ENV.key?(key)
+        return !['nil', '', '0', 'off', 'false', 'f'].include?(ENV[key].to_s.downcase)
       end
     end
   end
