@@ -451,12 +451,6 @@ Parameters:
 |*name*              |`String`  |The name of the new tag. |
 |*options*           |`Hash`    |Optional parameters, see below. The hash always expects symbols as keys. |
 
-Optional parameters:
-
-| Parameter          |Type               | Description                                               |
-|--------------------|-------------------|-----------------------------------------------------------|
-|*parent_id*         |`Integer`              |**DEPRECATED**. The ID of the parent tag.
-
 Example:
 
 ```ruby
@@ -485,7 +479,6 @@ Optional parameters:
 | Parameter          |Type               | Description                                               |
 |--------------------|-------------------|-----------------------------------------------------------|
 |*name*              |`String`           |The new name of the tag. |
-|*parent_id*         |`Integer`          |**DEPRECATED**. The new parent tag ID.
 
 Example:
 

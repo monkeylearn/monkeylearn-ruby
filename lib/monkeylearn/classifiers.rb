@@ -138,9 +138,6 @@ module Monkeylearn
         data = {
           name: name,
         }
-        if options[:parent_id]
-          data[:parent_id] = options[:parent_id]
-        end
         request(:post, build_endpoint(module_id), data)
       end
 
@@ -152,7 +149,6 @@ module Monkeylearn
         endpoint = build_endpoint(module_id, tag_id)
         data = {
           name: options[:name],
-          parent_id: options[:parent_id]
         }.delete_if { |k,v| v.nil? }
         request :patch, endpoint, data
       end
