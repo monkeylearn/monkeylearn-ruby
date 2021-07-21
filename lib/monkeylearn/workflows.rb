@@ -29,10 +29,13 @@ module Monkeylearn
       end
 
       def create(name, options = {})
+        if options[:db_name]
+          warn 'Note: db_name parameter is ignored by the API and will be removed soon'
+        end
+
         data = {
             name: name,
             description: options[:description],
-            db_name: options[:db_name],
             webhook_url: options[:webhook_url],
             steps: options[:steps],
             custom_fields: options[:custom_fields],
